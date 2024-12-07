@@ -1,7 +1,6 @@
-import utils
+from datetime import datetime
 
-class Conta:
-    # Esse já cria a conta direto
+class Contas:
     def __init__(self, numero):
         self.numero = numero
         self.saldo = 0.0
@@ -35,3 +34,11 @@ class Conta:
             return "Saque realizado com sucesso"
 
         return "Depósito realizado com sucesso"
+    
+    def formata_data(data_str):
+        try:
+            data = datetime.strptime(data_str, "%d/%m/%Y")
+            data_formatada = (data.year, data.month, data.day)
+            return data_formatada
+        except ValueError:
+            return None

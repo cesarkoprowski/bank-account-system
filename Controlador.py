@@ -1,6 +1,6 @@
-from Conta import Conta
+from Contas import Contas
 
-class Banco:
+class Controlador:
     def __init__(self):
         self.contas = {}
 
