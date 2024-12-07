@@ -1,21 +1,24 @@
-import Controlador
-import Contas
+from Controlador import Controlador
 
 def main():
-    banco = Controlador
+    controlador = Controlador()
     while True:
         entrada = input("FatecBank: ")
+        retorno = None
         if entrada == "abrir":
-            numero_conta = input("Digite o numero da conta que deseja abrir: ")
-            banco.criar
+            conta = input("numero da conta: ")
+            retorno = controlador.criar_conta(conta)
         elif entrada == "saldo":
-
-        elif entrada == "saque":
-
-        elif entrada == "deposito":
-
+            conta = input("numero da conta: ")
+            retorno = controlador.consultar_saldo(conta)
+        elif entrada == "saque" or entrada == "deposito":
+            movimentacao = input("descreva a movimentação: ")
+            retorno = controlador.realizar_movimentacao(movimentacao) # está dando b.o aqui na movimentação
         elif entrada == "sair":
+            break
 
+        if retorno:
+            print(retorno)
 
     print("Sistema Encerrado.")
 

@@ -8,7 +8,7 @@ class Controlador:
         if numero in self.contas:
             return "Número de conta já existe."
 
-        self.contas[numero] = Conta(numero)
+        self.contas[numero] = Contas(numero)
         return "Conta aberta com sucesso!"
 
     def consultar_saldo(self, numero):
@@ -17,11 +17,17 @@ class Controlador:
 
         return f"O saldo da conta {numero} é R$ {self.contas[numero].saldo:.2f}"
 
-    def realizar_movimentacao(self, numero, valor, data, descricao):
-        if numero not in self.contas:
+    def realizar_movimentacao(self, movimentacao):
+        partes = movimentacao.split(' ')
+        conta = int(partes[0])
+        valor = float(partes[1])
+        data = partes[2]
+        descricao = " ".join(partes[3:])
+
+        if conta not in self.contas:
             return "Esta conta não existe."
 
-        return self.contas[numero].movimentacao(valor, data, descricao)
+        return self.contas[conta].movimentacao(valor, data, descricao)
 
     def extrato(self, numero):
         if numero not in self.contas:
