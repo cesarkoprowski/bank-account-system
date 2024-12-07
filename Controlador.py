@@ -38,3 +38,13 @@ class Controlador:
             return "Não há movimentações registradas na conta."
 
         return extrato
+    
+    def fechar_conta(self, numero):
+        if numero not in self.contas:
+            return "Esta conta não existe."
+        
+        if self.contas[numero].saldo == 0:
+            del self.contas[numero]
+            return "Conta fechada com sucesso"
+        else:
+            return f"A conta não pode ser fechada"
