@@ -6,6 +6,14 @@ class Contas:
         self.saldo = 0.0
         self.movimentacoes = []
 
+    def _formata_data(self, data_str):
+        try:
+            data = datetime.strptime(data_str, "%d/%m/%Y")
+            data_formatada = (data.year, data.month, data.day)
+            return data_formatada
+        except ValueError:
+            return None
+
     def movimentacao(self, valor, data, descricao):
         saque = valor < 0
 
@@ -15,7 +23,7 @@ class Contas:
         if saque and (self.saldo + valor < 0):
             return "Saldo insuficiente"
 
-        data_formatada = utils.formata_data(data)
+        data_formatada = self._formata_data(data)
         if not data_formatada:
             return "Data inválida"
 
@@ -34,11 +42,5 @@ class Contas:
             return "Saque realizado com sucesso"
 
         return "Depósito realizado com sucesso"
-    
-    def formata_data(data_str):
-        try:
-            data = datetime.strptime(data_str, "%d/%m/%Y")
-            data_formatada = (data.year, data.month, data.day)
-            return data_formatada
-        except ValueError:
-            return None
+
+
