@@ -37,13 +37,13 @@ class Conta:
 
 class Banco:
     def __init__(self):
-        self.Conta = {}
+        self.contas = {}
 
     def criar_conta(self, numero):
         if numero in self.contas:
-            return False, "Número de conta já existe"
-        
-        self.contas[numero] = ContaBancaria(numero)
+            return False, "Número de conta já existe."
+
+        self.contas[numero] = Conta(numero)
         return True, "Conta aberta com sucesso!"
 
     def consultar_saldo(self, numero):
@@ -51,3 +51,9 @@ class Banco:
             return None, "Esta conta não existe."
         
         return "O saldo da conta é R$ " , self.contas[numero].saldo
+
+    def realizar_movimentacao(self, numero, valor, data, descricao):
+        if numero not in self.contas:
+            return False, "Esta conta não existe."
+
+        return self.contas[numero].movimentacao(valor, data, descricao)
