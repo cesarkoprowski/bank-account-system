@@ -1,6 +1,6 @@
 from datetime import datetime
 
-def _formata_data(data_str):
+def formata_data(data_str):
     try:
         data = datetime.strptime(data_str, "%d/%m/%Y")
         data_formatada = (data.year, data.month, data.day)
@@ -15,7 +15,7 @@ class Contas:
         self.movimentacoes = []
 
     def movimentacao(self, movimento, valor, data, descricao):
-        saque = (movimento == "saque")
+        saque = (movimento == "Saque")
 
         if valor == 0:
             return "Não e possível realizar movimentação de R$ 0,00"
@@ -23,7 +23,7 @@ class Contas:
         if saque and (self.saldo - valor < 0):
             return "Saldo insuficiente"
 
-        data_formatada = _formata_data(data)
+        data_formatada = formata_data(data)
         if not data_formatada:
             return "Data inválida"
 

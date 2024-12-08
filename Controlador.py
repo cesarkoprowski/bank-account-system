@@ -1,10 +1,19 @@
 from Contas import Contas
+from Contas import formata_data
+
+def compara_data(movimentacoes, data):
+    data = formata_data(data)
+    for i in range(len(movimentacoes)):
+        if movimentacoes[i]["data"] >= data:
+            return i
+            
+    return -1 
 
 class Controlador:
     def __init__(self):
         self.contas = {}
 
-    def criar_conta(self, numero):
+    def abrir_conta(self, numero):
         if numero in self.contas:
             return "Número de conta já existe."
 
@@ -29,15 +38,35 @@ class Controlador:
 
         return self.contas[conta].movimentacao(movimento, valor, data, descricao)
 
-    def extrato(self, numero):
+    def extrato(self, numero, data):
         if numero not in self.contas:
             return "Esta conta não existe."
 
-        extrato = self.contas[numero].movimentacoes
-        if not extrato:
-            return "Não há movimentações registradas na conta."
+        movimentacoes = self.contas[numero].movimentacoes
+        indice = compara_data(movimentacoes, data)
 
-        return extrato
+        texto = ""
+
+        print(f"Indice = {indice}")
+
+        if not movimentacoes:
+            return "Não há movimentações registradas na conta"
+        
+        if indice == -1:
+            return "Não há movimentações registradas na conta"
+        else:
+            for i in range(indice, len(movimentacoes)):
+                texto += (
+                    "--------------------------------------------------------------\n"
+                    f"{movimentacoes[i]['movimento']} de valor R$ {movimentacoes[i]['valor']:.2f} realizado em {movimentacoes[i]['data'][2]}/{movimentacoes[i]['data'][1]}/{movimentacoes[i]['data'][0]}\n"
+                    f"Descrição adicional: {movimentacoes[i]['descricao']}\n"
+                    f"Saldo após a movimentação: R$ {movimentacoes[i]['saldo_apos']:.2f}\n"
+                    "--------------------------------------------------------------\n"
+                )
+
+                
+
+        return texto
     
     def fechar_conta(self, numero):
         if numero not in self.contas:
