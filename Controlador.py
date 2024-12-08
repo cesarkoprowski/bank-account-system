@@ -17,9 +17,9 @@ class Controlador:
 
         return f"O saldo da conta {numero} é R$ {self.contas[numero].saldo:.2f}"
 
-    def realizar_movimentacao(self, movimentacao):
+    def realizar_movimentacao(self, movimentacao, movimento):
         partes = movimentacao.split(' ')
-        conta = int(partes[0])
+        conta = partes[0]
         valor = float(partes[1])
         data = partes[2]
         descricao = " ".join(partes[3:])
@@ -27,7 +27,7 @@ class Controlador:
         if conta not in self.contas:
             return "Esta conta não existe."
 
-        return self.contas[conta].movimentacao(valor, data, descricao)
+        return self.contas[conta].movimentacao(movimento, valor, data, descricao)
 
     def extrato(self, numero):
         if numero not in self.contas:

@@ -11,9 +11,12 @@ def main():
         elif entrada == "saldo":
             conta = input("Numero da conta: ")
             retorno = controlador.consultar_saldo(conta)
-        elif entrada == "sacar" or entrada == "depositar":
+        elif entrada == "sacar":
             movimentacao = input("Descreva a movimentação: ")
-            retorno = controlador.realizar_movimentacao(movimentacao) # está dando b.o aqui na movimentação
+            retorno = controlador.realizar_movimentacao(movimentacao, "saque")
+        elif entrada == "depositar":
+            movimentacao = input("Descreva a movimentação: ")
+            retorno = controlador.realizar_movimentacao(movimentacao, "deposito")
         elif entrada == "fechar":
             conta = input("Numero da conta: ")
             retorno = controlador.fechar_conta(conta)
