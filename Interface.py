@@ -3,7 +3,7 @@ from Controlador import Controlador
 def main():
     controlador = Controlador()
     while True:
-        entrada = input("FatecBank: ")
+        entrada = input("[FatecBank]\nDigite sua ação: ")
         retorno = None
         if entrada == "abrir":
             conta = input("Numero da conta: ")
@@ -18,18 +18,20 @@ def main():
             movimentacao = input("Descreva a movimentação: ")
             retorno = controlador.realizar_movimentacao(movimentacao, "Deposito")
         elif entrada == "extrato":
-            conta, data = input("Insira conta e a data inicial: ").split(' ')            
+            conta, data = input("Insira conta e a data inicial: ").split(' ')
             retorno = controlador.extrato(conta, data)
         elif entrada == "fechar":
             conta = input("Numero da conta: ")
             retorno = controlador.fechar_conta(conta)
         elif entrada == "sair":
             break
+        else:
+            print("Não entendi,tente novamente.")
 
         if retorno:
             print(retorno)
 
-    print("Sistema Encerrado.")
+    print("Sistema Encerrado, obrigado por utilizar o Fatec Bank")
 
 if __name__ == "__main__":
     main()

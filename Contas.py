@@ -30,6 +30,11 @@ class Contas:
         if self.movimentacoes and data_formatada < self.movimentacoes[-1]["data"]:
             return "Movimentação tem data retroativa"
 
+        if saque:
+            self.saldo -= valor
+        else: # Depósito
+            self.saldo += valor
+
         self.movimentacoes.append({
             "movimento": movimento,
             "valor": valor,
@@ -39,10 +44,8 @@ class Contas:
         })
 
         if saque:
-            self.saldo -= valor
             return "Saque realizado com sucesso"
-
-        self.saldo += valor
+        # Depósito:
         return "Depósito realizado com sucesso"
 
 

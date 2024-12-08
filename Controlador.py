@@ -18,7 +18,7 @@ class Controlador:
             return "Número de conta já existe."
 
         self.contas[numero] = Contas(numero)
-        return "Conta aberta com sucesso!"
+        return "Conta aberta com sucesso"
 
     def consultar_saldo(self, numero):
         if numero not in self.contas:
@@ -47,8 +47,6 @@ class Controlador:
 
         texto = ""
 
-        print(f"Indice = {indice}")
-
         if not movimentacoes:
             return "Não há movimentações registradas na conta"
         
@@ -56,16 +54,15 @@ class Controlador:
             return "Não há movimentações registradas na conta"
         else:
             for i in range(indice, len(movimentacoes)):
+                data = movimentacoes[i]['data']
+                dataf = f"{data[2]:02d}/{data[1]:02d}/{data[0]}"
                 texto += (
                     "--------------------------------------------------------------\n"
-                    f"{movimentacoes[i]['movimento']} de valor R$ {movimentacoes[i]['valor']:.2f} realizado em {movimentacoes[i]['data'][2]}/{movimentacoes[i]['data'][1]}/{movimentacoes[i]['data'][0]}\n"
+                    f"{movimentacoes[i]['movimento']} de valor R$ {movimentacoes[i]['valor']:.2f} realizado em {dataf}\n"
                     f"Descrição adicional: {movimentacoes[i]['descricao']}\n"
                     f"Saldo após a movimentação: R$ {movimentacoes[i]['saldo_apos']:.2f}\n"
-                    "--------------------------------------------------------------\n"
                 )
-
-                
-
+        texto += "--------------------------------------------------------------"
         return texto
     
     def fechar_conta(self, numero):
